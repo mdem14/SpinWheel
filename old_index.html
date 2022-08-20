@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="pixi.js"></script>
+    <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
+
+    <title>Spine Wheel</title>
+  </head>
+  <body>
+    <script>
+      let app = new PIXI.Application({
+        backgroundColor: 0x1099bb,
+      })
+      document.body.appendChild(app.view)
+
+      const wheel = PIXI.Sprite.from('wheel.png')
+      wheel.anchor.set(0.5)
+      wheel.x = app.screen.width / 2
+      wheel.y = app.screen.height / 2
+      app.stage.addChild(wheel)
+
+      const stopper = PIXI.Sprite.from('stopper.png')
+      stopper.x = app.screen.width / 2 - 15.5 // изменить 15.5 на что-то поумнее
+      stopper.y = app.screen.height / 2
+      app.stage.addChild(stopper)
+
+      // app.ticker.add(() => {
+      //   wheel.rotate -= 0.01
+      //   wheel.angle = 10
+      // })
+
+      // RotationPlugin.install(props)
+
+      // init()
+
+      function start(sectorNumber) {
+        createjs.Tween.get(wheel)
+          // .to({ rotation: 0 }, 10)
+          .to({ rotation: ((360 * 3 + 340) * Math.PI) / 180 }, 5500)
+        // .easing(TWEEN.Easing.Quadratic.Out)
+        createjs.Ease.getPowInOut(4)
+        // createjs.Ticker.setFPS(60)
+        // createjs.Ticker.addEventListener('tick', stage)
+      }
+
+      // function init() {
+
+      // }
+
+      // var tween = new TWEEN.Tween(wheel.position).to(
+      //   { rotation: ((360 * 3 + 340) * Math.PI) / 180 },
+      //   5500
+      // )
+    </script>
+  </body>
+</html>
