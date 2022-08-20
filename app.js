@@ -95,10 +95,24 @@ function sectorAngle(n) {
   }
 }
 
-wheel.start = function () {
+gsap.registerPlugin(PixiPlugin);
+PixiPlugin.registerPIXI(PIXI);
+
+wheel.start = function (sectorNumber) {
   gsap.to(wheel, {
     // rotation: (sectorAngle(sectorNumber) * Math.PI) / 180,
-    rotation: '360_cw',
-    // duration: 5,
+    // rotation: '10_cw',
+    pixi: { rotation: 1080 + sectorAngle(sectorNumber) + '_cw' },
+    duration: 5,
+    ease: 'elastic',
   });
 };
+
+// let tween = gsap.to(wheel, { rotation: 10, duration: 1 });
+
+// gsap.registerPlugin(Draggable);
+
+// let rotationSpin = new Draggable(wheel, {
+//   type: 'rotation',
+//   throwProps: true,
+// });
