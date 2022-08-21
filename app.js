@@ -22,65 +22,6 @@ stopper.x = app.screen.width / 2 - 15.5; // изменить 15.5 на что-т
 stopper.y = app.screen.height / 2;
 app.stage.addChild(stopper);
 
-// app.ticker.add((delta) => loop(delta));
-
-// function loop(delta) {
-//   wheel.rotation += 0.01;
-// }
-
-// function start() {
-//   createjs.Tween.get(wheel)
-//     // .to({ rotation: 0 }, 10)
-//     .to({ rotation: ((360 * 3 + 340) * Math.PI) / 180 }, 5500);
-//   // .easing(TWEEN.Easing.Quadratic.Out)
-//   createjs.Ease.getPowInOut(4);
-// }
-
-// var tween = new TWEEN.Tween(wheel).to(
-//   { rotation: ((360 * 3 + 10) * Math.PI) / 180 },
-//   5500
-// );
-// .to({ x: 200 }, 1000)
-
-// animate();
-
-// function animate() {
-//   requestAnimationFrame(animate);
-//   TWEEN.update();
-// }
-
-// wheel.start = function (sectorNumber) {
-// let sectorAngle = 0;
-// // sectorNumber = +sectorNumber;
-// if (sectorNumber >= 1 && sectorNumber <= 9) {
-//   sectorAngle = (9 - sectorNumber) * 20 + 10;
-// } else if (sectorNumber >= 10 && sectorNumber <= 19) {
-//   sectorAngle = 180 - 20 * (sectorNumber - 10);
-// } else if (sectorNumber >= 20 && sectorNumber <= 27) {
-//   sectorAngle = 360 - 20 * (sectorNumber - 19);
-// } else if (sectorNumber >= 28 && sectorNumber <= 36) {
-//   sectorAngle = 350 - 20 * (sectorNumber - 28);
-// } else {
-//   console.log('Введите число от 1 до 36');
-//   // return break;
-// }
-
-//   RotationPlugin.install();
-
-//   var tween = new TWEEN.Tween(wheel)
-//     .to(
-//       {
-//         rotation: ((360 * 3 + sectorAngle(sectorNumber)) * Math.PI) / 180,
-//         rotationDir: 0,
-//       },
-//       5500
-//     )
-//     .start();
-
-//   console.log(sectorAngle(sectorNumber));
-//   console.log(sectorNumber);
-// };
-
 function sectorAngle(n) {
   if (n >= 1 && n <= 9) {
     return (9 - n) * 20 + 10;
@@ -97,22 +38,6 @@ function sectorAngle(n) {
 
 gsap.registerPlugin(PixiPlugin);
 PixiPlugin.registerPIXI(PIXI);
-// console.log(wheel.position);
-
-// wheel.start = function (sectorNumber) {
-//   gsap
-//     .to(wheel, {
-//       // rotation: ((1080 + sectorAngle(sectorNumber)) * Math.PI) / 180,
-//       // rotation: '10_cw',
-//       pixi: { rotation: +1080 + sectorAngle(sectorNumber) + '_cw' },
-//       // repeat: -1,
-//       duration: 5,
-//       ease: 'elastic',
-//     })
-//     .call(() => {
-//       gsap.stop();
-//     });
-// };
 
 wheel.start = function (sectorNumber) {
   gsap.fromTo(
@@ -122,23 +47,9 @@ wheel.start = function (sectorNumber) {
     },
 
     {
-      // rotation: ((1080 + sectorAngle(sectorNumber)) * Math.PI) / 180,
-      // rotation: '10_cw',
       pixi: { rotation: +1080 + sectorAngle(sectorNumber) + '_cw' },
-      // repeat: -1,
       duration: 5,
       // ease: 'elastic',
     }
   );
-  // .call(() => {
-  //   gsap.stop();
 };
-
-// let tween = gsap.to(wheel, { rotation: 10, duration: 1 });
-
-// gsap.registerPlugin(Draggable);
-
-// let rotationSpin = new Draggable(wheel, {
-//   type: 'rotation',
-//   throwProps: true,
-// });
