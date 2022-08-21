@@ -97,15 +97,41 @@ function sectorAngle(n) {
 
 gsap.registerPlugin(PixiPlugin);
 PixiPlugin.registerPIXI(PIXI);
+// console.log(wheel.position);
+
+// wheel.start = function (sectorNumber) {
+//   gsap
+//     .to(wheel, {
+//       // rotation: ((1080 + sectorAngle(sectorNumber)) * Math.PI) / 180,
+//       // rotation: '10_cw',
+//       pixi: { rotation: +1080 + sectorAngle(sectorNumber) + '_cw' },
+//       // repeat: -1,
+//       duration: 5,
+//       ease: 'elastic',
+//     })
+//     .call(() => {
+//       gsap.stop();
+//     });
+// };
 
 wheel.start = function (sectorNumber) {
-  gsap.to(wheel, {
-    // rotation: (sectorAngle(sectorNumber) * Math.PI) / 180,
-    // rotation: '10_cw',
-    pixi: { rotation: 1080 + sectorAngle(sectorNumber) + '_cw' },
-    duration: 5,
-    ease: 'elastic',
-  });
+  gsap.fromTo(
+    wheel,
+    {
+      rotation: 0,
+    },
+
+    {
+      // rotation: ((1080 + sectorAngle(sectorNumber)) * Math.PI) / 180,
+      // rotation: '10_cw',
+      pixi: { rotation: +1080 + sectorAngle(sectorNumber) + '_cw' },
+      // repeat: -1,
+      duration: 5,
+      // ease: 'elastic',
+    }
+  );
+  // .call(() => {
+  //   gsap.stop();
 };
 
 // let tween = gsap.to(wheel, { rotation: 10, duration: 1 });
