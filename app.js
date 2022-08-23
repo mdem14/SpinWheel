@@ -21,9 +21,9 @@ stopper.y = app.screen.height / 2;
 app.stage.addChild(stopper);
 
 const loader = PIXI.Loader.shared;
-loader.add(['./fonts/font_wheel.fnt']).load(createText);
+loader.add(['./fonts/font_wheel.fnt']).load(createText).load(matrica);
 
-function sectorAngle(n) {
+function sectortoAngle(n) {
   if (n >= 1 && n <= 9) {
     return (9 - n) * 20 + 10;
   } else if (n >= 10 && n <= 19) {
@@ -37,8 +37,53 @@ function sectorAngle(n) {
   }
 }
 
+const WHEEL_ANGLE = [];
+
+function matrica() {
+  for (i = 0; i < 36; i++) {
+    WHEEL_ANGLE.push(sectortoAngle(i + 1));
+  }
+}
+
 gsap.registerPlugin(PixiPlugin);
 PixiPlugin.registerPIXI(PIXI);
+
+// wheel.start = function (sectorNumber) {
+//   gsap.fromTo(
+//     wheel,
+//     {
+//       rotation: 0,
+//     },
+
+//     {
+//       pixi: { rotation: +1080 + sectorAngle(sectorNumber) + '_cw' },
+//       duration: 5,
+//       // ease: 'elastic',
+//       ease: 'circ.out',
+//     }
+//   );
+//   let currentSector = gsap.getProperty(wheel, 'pixi: rotation');
+
+//   return testText(currentSector);
+// };
+
+// wheel.start = function (sectorNumber) {
+//   matrica();
+//   gsap.to(wheel, {
+//     pixi: { rotation: +1080 + WHEEL_ANGLE[sectorNumber - 1] + '_cw' },
+//     duration: 5,
+//     // ease: 'elastic',
+//     ease: 'circ.out',
+//     onUpdate: function () {
+//       // let currentAngle = (gsap.getProperty(wheel, 'rotation') * 180) / Math.PI;
+//       // console.log(currentAngle);
+//       // let currentSector = sectorAngle(currentAngle);
+//       // testText(currentSector);
+//       // var currentSector = Math.round(gsap.getProperty(wheel, 'rotation'));
+//       // $('#stats_rotation_current > span').text(currentAngle);
+//     },
+//   });
+// };
 
 wheel.start = function (sectorNumber) {
   gsap.fromTo(
@@ -48,19 +93,58 @@ wheel.start = function (sectorNumber) {
     },
 
     {
-      pixi: { rotation: +1080 + sectorAngle(sectorNumber) + '_cw' },
+      pixi: { rotation: +1080 + WHEEL_ANGLE[sectorNumber - 1] + '_cw' },
       duration: 5,
       // ease: 'elastic',
+      ease: 'circ.out',
+      onUpdate: function () {
+        let currentAngle =
+          (gsap.getProperty(wheel, 'rotation') * 180) / Math.PI;
+        // console.log(currentAngle);
+        currentAngle = currentAngle - Math.floor(currentAngle / 360) * 360;
+        // console.log(currentAngle);
+        let currentSector =
+          WHEEL_ANGLE.indexOf(
+            WHEEL_ANGLE.reduce(function (a, c) {
+              return Math.abs(a - currentAngle) < Math.abs(c - currentAngle)
+                ? a
+                : c;
+            })
+          ) + 1;
+        console.log(currentSector);
+        testText(currentSector);
+        // WHEEL_ANGLE.reduce(function (a, c) {
+        //   return Math.abs(a - currentAngle) < Math.abs(c - currentAngle)
+        //     ? a
+        //     : c;
+        // });
+        // } = WHEEL_ANGLE.indexOf(currentAngle - 1080);
+        // console.log(currentSector);
+        //       // let currentSector = sectorAngle(currentAngle);
+      },
     }
   );
-  textObj.text(111);
+  // let currentSector = gsap.getProperty(wheel, 'pixi: rotation');
+
+  // return testText(currentSector);
 };
 
+// var textObj = new PIXI.Text(19, {
+//   fontName: 'font_wheel',
+// });
+
+// textObj.anchor.set(0.5, 0.5);
+// textObj.x = app.screen.width / 2;
+// textObj.y = app.screen.height / 2;
+// app.stage.addChild(textObj);
+
+var textObj = 'text';
+
 function createText() {
-  let textObj = new PIXI.Text(19, {
+  textObj = new PIXI.BitmapText(19, {
     fontName: 'font_wheel',
-    // fontSize: 70,
-    // align: 'center',
+    fontSize: 70,
+    align: 'center',
   });
   textObj.anchor.set(0.5, 0.5);
   textObj.x = app.screen.width / 2;
@@ -69,11 +153,18 @@ function createText() {
   // app.ticker.add(function (delta) {
   //   text.text = Number(text.text) + 1;
   // });
-  textObj.interactive = true;
-  return textObj;
+  // textObj.interactive = true;
+  // return textObj;
 }
 
 // const setNumber = (value) => {
 //   number = value;
 //   textObj.setText(number);
 // };
+// console.log(sectorNumber);
+
+function testText(sectorNumber) {
+  textObj.text = sectorNumber;
+}
+
+// console.log(currentSector);
