@@ -116,8 +116,9 @@ function colourSector(currentSector) {
     (currentSector >= 1 && currentSector <= 9) ||
     (currentSector >= 28 && currentSector <= 36)
   ) {
-    return (textCircle.tint = 0xff0000);
-  } else {
     return (textCircle.tint = 0x000000);
+    0x000000;
+  } else {
+    return (textCircle.tint = 0xff0000);
   }
 }
