@@ -1,11 +1,12 @@
 const Application = PIXI.Application;
 
 const app = new Application({
-  width: 500,
-  height: 500,
+  // width: 500,
+  // height: 500,
   transparent: false,
   antialias: true,
-  backgroundColor: 0x23395d,
+  backgroundColor: 0xffffff,
+  resizeTo: window,
 });
 document.body.appendChild(app.view);
 
@@ -16,12 +17,23 @@ wheel.y = app.screen.height / 2;
 app.stage.addChild(wheel);
 
 const stopper = PIXI.Sprite.from('./images/stopper.png');
-stopper.x = app.screen.width / 2 - 15.5; // изменить 15.5 на что-то поумнее
+stopper.x = app.screen.width / 2 - 15.5; // 15.5 - half width stopper
+// stopper.x = (app.screen.width - stopper.width) / 2;
 stopper.y = app.screen.height / 2;
+// stopper.y = (app.screen.height - stopper.width) / 2;
 app.stage.addChild(stopper);
 
 const loader = PIXI.Loader.shared;
 loader.add(['./fonts/font_wheel.fnt']).load(createText).load(matrica);
+
+const textCircle = new PIXI.Graphics();
+textCircle.beginFill(0xffffff);
+textCircle.drawCircle(40, 40, 40);
+textCircle.endFill();
+// textCircle.anchor.set(0.5);
+textCircle.x = (app.screen.width - textCircle.width) / 2;
+textCircle.y = (app.screen.height - textCircle.height) / 2;
+app.stage.addChild(textCircle);
 
 function sectortoAngle(n) {
   if (n >= 1 && n <= 9) {
@@ -74,6 +86,7 @@ wheel.start = function (sectorNumber) {
           ) + 1;
         console.log(currentSector);
         testText(currentSector);
+        colourSector(currentSector);
       },
     }
   );
@@ -86,6 +99,7 @@ function createText() {
     fontName: 'font_wheel',
     fontSize: 70,
     align: 'center',
+    fill: 0xffffff,
   });
   textObj.anchor.set(0.5, 0.5);
   textObj.x = app.screen.width / 2;
@@ -95,4 +109,15 @@ function createText() {
 
 function testText(sectorNumber) {
   textObj.text = sectorNumber;
+}
+
+function colourSector(currentSector) {
+  if (
+    (currentSector >= 1 && currentSector <= 9) ||
+    (currentSector >= 28 && currentSector <= 36)
+  ) {
+    return (textCircle.tint = 0xff0000);
+  } else {
+    return (textCircle.tint = 0x000000);
+  }
 }
