@@ -5,7 +5,6 @@ class Renderer extends PIXI.Application {
       resizeTo: window,
     });
     this.scene();
-    // this.wheel();
   }
 
   scene() {
@@ -13,9 +12,6 @@ class Renderer extends PIXI.Application {
     this.stage.addChild(this.scene);
   }
 
-  // wheel(sectorNumber) {
-  //   console.log('privet ' + sectorNumber);
-  // }
   wheel(sectorNumber) {
     sectorNumber;
     this.wheel = new Wheel(this.scene.wheel, sectorNumber);
