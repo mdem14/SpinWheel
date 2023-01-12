@@ -1,42 +1,11 @@
-// gsap.registerPlugin(PixiPlugin);
-// PixiPlugin.registerPIXI(PIXI);
+gsap.registerPlugin(PixiPlugin);
+PixiPlugin.registerPIXI(PIXI);
 
 const app = new Renderer();
 document.body.appendChild(app.view);
-app.wheel(3);
 
-// const wheel = {
-//   start(sectorNumber) {
-//     app.wheel(sectorNumber);
-//   },
-// };
-
-// const wheel = new Wheel();
-// window.wheel = wheel;
-
-// let wheel = {};
-// wheel.start = function (sectorNumber) {
-//   app.wheel(sectorNumber);
-// };
-
-// let wheel = app.wheel(123);
-// console.log('wheel: ' + app.wheel(123));
-// let wheel = new Wheel();
-// let wheel =;
-// wheel.start = function (sectorNumber) {
-//   app.wheel(sectorNumber);
-// };
-
-// const wheel.start = (sectorNumber) => {
-//   app.wheel(sectorNumber);
-// };
-
-// let wheel = new Wheel();
-// wheel.start(12);
-
-// function wheel(number) {
-//   let wheel = new Wheel(number);
-// }
+let myWheel = new Wheel(app.scene.wheel);
+window.myWheel = myWheel;
 
 // window.wheel = wheel; // https://stackoverflow.com/questions/68184070/how-to-call-or-access-a-class-method-in-javascript-from-the-browsers-console
 
