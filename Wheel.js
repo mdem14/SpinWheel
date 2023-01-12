@@ -39,7 +39,6 @@ class Wheel {
   }
   getTargetAngle() {
     let angle_per_sector = 360 / SECTORS.length;
-    // console.log(angle_per_sector);
     let sector_index = SECTORS.indexOf(this.sectorNumber);
     this.target_angle = angle_per_sector * sector_index;
   }
