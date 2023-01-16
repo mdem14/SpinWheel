@@ -11,4 +11,8 @@ class Renderer extends PIXI.Application {
     this.scene = new Scene();
     this.stage.addChild(this.scene);
   }
+
+  static setColour(text) {
+    text.tint = 0xff0000;
+  }
 }

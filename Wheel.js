@@ -1,18 +1,17 @@
-const SECTORS = [
-  10, 1, 11, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19, 28, 20, 29,
-  21, 30, 22, 31, 23, 32, 24, 33, 25, 34, 26, 35, 27, 36,
-];
+import { SECTORS, SECTOR_COLORS, WHEEL_COLORS } from './constants.js';
 
-class Wheel {
-  constructor(wheel) {
-    this.wheel = wheel;
+export class Wheel {
+  static angle_per_sector = 360 / SECTORS.length;
+
+  constructor(scene) {
+    this.scene = scene;
   }
-  start(sectorNumber) {
-    this.sectorNumber = sectorNumber;
+  start(SECTOR_NUMBER) {
+    this.SECTOR_NUMBER = SECTOR_NUMBER;
     this.getTargetAngle();
 
     gsap.fromTo(
-      this.wheel,
+      this.scene.wheel,
       {
         rotation: 0,
       },
@@ -21,25 +20,41 @@ class Wheel {
         duration: 5,
         // ease: 'elastic',
         // ease: 'circ.out',
-        // onUpdate: function () {
-        //   let currentAngle =
-        //     (gsap.getProperty(app.scene.loader.wheel, 'rotation') * 180) /
-        //     Math.PI;
-        //   currentAngle = currentAngle - Math.floor(currentAngle / 360) * 360;
-        //   let currentSector =
-        //     WHEEL_ANGLE.indexOf(
-        //       WHEEL_ANGLE.reduce(function (a, c) {
-        //         return Math.abs(a - currentAngle) < Math.abs(c - currentAngle)
-        //           ? a
-        //           : c;
-        //       })
-        //     ) + 1;
+
+        onUpdate: () => {
+          let updateAngle =
+            (gsap.getProperty(this.scene.wheel, 'rotation') * 180) / Math.PI;
+          updateAngle = updateAngle - Math.floor(updateAngle / 360) * 360;
+
+          this.getSector(updateAngle);
+          this.getColour(this.updateSector);
+          this.setFieldColour(this.updateColour);
+
+          console.log(this.updateSector);
+          console.log(this.updateColour);
+        },
       }
     );
   }
   getTargetAngle() {
-    let angle_per_sector = 360 / SECTORS.length;
-    let sector_index = SECTORS.indexOf(this.sectorNumber);
-    this.target_angle = angle_per_sector * sector_index;
+    let sector_index = SECTORS.indexOf(this.SECTOR_NUMBER);
+    this.target_angle = Wheel.angle_per_sector * sector_index;
+  }
+
+  getColour(sector) {
+    if (SECTOR_COLORS[WHEEL_COLORS.RED].includes(sector))
+      return (this.updateColour = 'RED');
+    else return (this.updateColour = 'BLACK');
+  }
+
+  getSector(angle) {
+    let sector_index = angle / Wheel.angle_per_sector;
+    this.updateSector = SECTORS.at(-Math.round(sector_index));
+  }
+
+  setFieldColour() {
+    if (this.updateColour == 'RED')
+      return (this.scene.textField.tint = 0xff0000);
+    else return (this.scene.textField.tint = 0x000000);
   }
 }

@@ -1,9 +1,9 @@
 class Scene extends PIXI.Container {
-  // textField = new createTextField();
   constructor() {
     super();
-    this.wheel = new createWheel();
-    this.stopper = new createStopper();
-    this.addChild(this.wheel, this.stopper);
+    this.wheel = new CreateWheel();
+    this.stopper = new CreateStopper();
+    this.textField = new CreateTextField();
+    this.addChild(this.wheel, this.stopper, this.textField);
   }
 }
