@@ -5,6 +5,7 @@ export class Wheel {
     this.scene = scene;
     this.angle_per_sector = 360 / SECTORS.length;
   }
+
   start(sector_number) {
     this.sector_number = sector_number;
     this.getTargetAngle();
@@ -26,8 +27,8 @@ export class Wheel {
           this.update_angle =
             update_angle - Math.floor(update_angle / 360) * 360;
 
-          this.getSector();
-          this.getColour();
+          this.getUpdateSector();
+          this.getUpdateColour();
           this.setFieldColour();
           this.setTextValue();
 
@@ -43,12 +44,12 @@ export class Wheel {
     this.target_angle = this.angle_per_sector * sector_index;
   }
 
-  getSector() {
+  getUpdateSector() {
     let sector_index = this.update_angle / this.angle_per_sector;
     this.update_sector_number = SECTORS.at(-Math.round(sector_index));
   }
 
-  getColour() {
+  getUpdateColour() {
     this.colourRed = SECTOR_COLORS[WHEEL_COLORS.RED].includes(
       this.update_sector_number
     )

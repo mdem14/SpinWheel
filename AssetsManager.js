@@ -38,7 +38,7 @@ class CreateTextField extends PIXI.Graphics {
   }
 }
 
-class Text extends PIXI.Text {
+class CreateTextValue extends PIXI.Text {
   constructor(text = '10') {
     super(text, {
       fontName: 'font_wheel',
