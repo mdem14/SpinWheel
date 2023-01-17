@@ -28,10 +28,11 @@ export class Wheel {
 
           this.getSector(updateAngle);
           this.getColour(this.updateSector);
-          this.setFieldColour(this.updateColour);
+          this.setFieldColour();
+          this.setText();
 
-          console.log(this.updateSector);
-          console.log(this.updateColour);
+          // console.log(this.updateSector);
+          // console.log(this.updateColour);
         },
       }
     );
@@ -56,5 +57,9 @@ export class Wheel {
     if (this.updateColour == 'RED')
       return (this.scene.textField.tint = 0xff0000);
     else return (this.scene.textField.tint = 0x000000);
+  }
+
+  setText() {
+    this.scene.textValue.text = this.updateSector;
   }
 }
