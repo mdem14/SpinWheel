@@ -1,6 +1,10 @@
 class CreateWheel extends PIXI.Sprite {
   constructor() {
     super(PIXI.Texture.from('src/images/wheel.png'));
+    this.init();
+  }
+
+  init() {
     this.anchor.set(0.5, 0.5);
     this.x = window.innerWidth / 2;
     this.y = window.innerHeight / 2;
@@ -10,6 +14,10 @@ class CreateWheel extends PIXI.Sprite {
 class CreateStopper extends PIXI.Sprite {
   constructor() {
     super(PIXI.Texture.from('src/images/stopper.png'));
+    this.init();
+  }
+
+  init() {
     this.anchor.set(0.5, 0);
     this.x = window.innerWidth / 2;
     this.y = window.innerHeight / 2;
@@ -34,7 +42,7 @@ class Text extends PIXI.Text {
   constructor(text = '10') {
     super(text, {
       fontName: 'font_wheel',
-      fontSize: 70,
+      fontSize: 50,
       align: 'center',
       fill: 0xffffff,
     });
