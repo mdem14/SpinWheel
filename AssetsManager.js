@@ -32,7 +32,7 @@ class CreateTextField extends PIXI.Graphics {
   }
 
   init() {
-    this.beginFill(0xffffff).drawCircle(40, 40, 40).endFill();
+    this.beginFill(0xff0000).drawCircle(40, 40, 40).endFill();
     this.x = (window.innerWidth - this.width) / 2;
     this.y = (window.innerHeight - this.height) / 2;
   }

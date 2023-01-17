@@ -1,13 +1,12 @@
 import { SECTORS, SECTOR_COLORS, WHEEL_COLORS } from './constants.js';
 
 export class Wheel {
-  static angle_per_sector = 360 / SECTORS.length;
-
   constructor(scene) {
     this.scene = scene;
+    this.angle_per_sector = 360 / SECTORS.length;
   }
-  start(SECTOR_NUMBER) {
-    this.SECTOR_NUMBER = SECTOR_NUMBER;
+  start(sector_number) {
+    this.sector_number = sector_number;
     this.getTargetAngle();
 
     gsap.fromTo(
@@ -22,14 +21,15 @@ export class Wheel {
         // ease: 'circ.out',
 
         onUpdate: () => {
-          let updateAngle =
+          let update_angle =
             (gsap.getProperty(this.scene.wheel, 'rotation') * 180) / Math.PI;
-          updateAngle = updateAngle - Math.floor(updateAngle / 360) * 360;
+          this.update_angle =
+            update_angle - Math.floor(update_angle / 360) * 360;
 
-          this.getSector(updateAngle);
-          this.getColour(this.updateSector);
+          this.getSector();
+          this.getColour();
           this.setFieldColour();
-          this.setText();
+          this.setTextValue();
 
           // console.log(this.updateSector);
           // console.log(this.updateColour);
@@ -37,29 +37,30 @@ export class Wheel {
       }
     );
   }
+
   getTargetAngle() {
-    let sector_index = SECTORS.indexOf(this.SECTOR_NUMBER);
-    this.target_angle = Wheel.angle_per_sector * sector_index;
+    let sector_index = SECTORS.indexOf(this.update_sector_number);
+    this.target_angle = this.angle_per_sector * sector_index;
   }
 
-  getColour(sector) {
-    if (SECTOR_COLORS[WHEEL_COLORS.RED].includes(sector))
-      return (this.updateColour = 'RED');
-    else return (this.updateColour = 'BLACK');
+  getSector() {
+    let sector_index = this.update_angle / this.angle_per_sector;
+    this.update_sector_number = SECTORS.at(-Math.round(sector_index));
   }
 
-  getSector(angle) {
-    let sector_index = angle / Wheel.angle_per_sector;
-    this.updateSector = SECTORS.at(-Math.round(sector_index));
+  getColour() {
+    this.colourRed = SECTOR_COLORS[WHEEL_COLORS.RED].includes(
+      this.update_sector_number
+    )
+      ? true
+      : false;
   }
 
   setFieldColour() {
-    if (this.updateColour == 'RED')
-      return (this.scene.textField.tint = 0xff0000);
-    else return (this.scene.textField.tint = 0x000000);
+    this.scene.textField.tint = this.colourRed ? 0xff0000 : 0x000000;
   }
 
-  setText() {
-    this.scene.textValue.text = this.updateSector;
+  setTextValue() {
+    this.scene.textValue.text = this.update_sector_number;
   }
 }
