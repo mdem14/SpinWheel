@@ -4,11 +4,12 @@ class Renderer extends PIXI.Application {
       backgroundColor: 0xffffff,
       resizeTo: window,
     });
-    this.scene();
+    this.addScene();
   }
 
-  scene() {
+  addScene() {
     this.scene = new Scene();
+    this.scene.position.set(window.innerWidth / 2, window.innerHeight / 2);
     this.stage.addChild(this.scene);
   }
 }

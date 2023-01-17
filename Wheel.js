@@ -11,7 +11,7 @@ export class Wheel {
     this.getTargetAngle();
 
     gsap.fromTo(
-      this.scene.wheel,
+      this.scene.wheel_sprite,
       {
         rotation: 0,
       },
@@ -23,7 +23,8 @@ export class Wheel {
 
         onUpdate: () => {
           let update_angle =
-            (gsap.getProperty(this.scene.wheel, 'rotation') * 180) / Math.PI;
+            (gsap.getProperty(this.scene.wheel_sprite, 'rotation') * 180) /
+            Math.PI;
           this.update_angle =
             update_angle - Math.floor(update_angle / 360) * 360;
 
@@ -40,7 +41,7 @@ export class Wheel {
   }
 
   getTargetAngle() {
-    let sector_index = SECTORS.indexOf(this.update_sector_number);
+    let sector_index = SECTORS.indexOf(this.sector_number);
     this.target_angle = this.angle_per_sector * sector_index;
   }
 
@@ -58,10 +59,10 @@ export class Wheel {
   }
 
   setFieldColour() {
-    this.scene.textField.tint = this.colourRed ? 0xff0000 : 0x000000;
+    this.scene.text_field.tint = this.colourRed ? 0xff0000 : 0x000000;
   }
 
   setTextValue() {
-    this.scene.textValue.text = this.update_sector_number;
+    this.scene.text_value.text = this.update_sector_number;
   }
 }
