@@ -1,7 +1,13 @@
 import { SECTORS, SECTOR_COLORS, WHEEL_COLORS } from './constants.js';
+import { gsap } from 'gsap';
+import { PixiPlugin } from 'gsap/PixiPlugin';
+import * as PIXI from 'pixi.js';
 
 export class Wheel {
   constructor(scene) {
+    gsap.registerPlugin(PixiPlugin);
+    PixiPlugin.registerPIXI(PIXI);
+
     this.scene = scene;
     this.angle_per_sector = 360 / SECTORS.length;
   }
@@ -51,7 +57,7 @@ export class Wheel {
   }
 
   getUpdateColour() {
-    this.colourRed = SECTOR_COLORS[WHEEL_COLORS.RED].includes(
+    this.isRed = SECTOR_COLORS[WHEEL_COLORS.RED].includes(
       this.update_sector_number
     )
       ? true
@@ -59,7 +65,7 @@ export class Wheel {
   }
 
   setFieldColour() {
-    this.scene.text_field.tint = this.colourRed ? 0xff0000 : 0x000000;
+    this.scene.text_field.tint = this.isRed ? 0xff0000 : 0x000000;
   }
 
   setTextValue() {

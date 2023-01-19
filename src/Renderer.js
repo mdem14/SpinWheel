@@ -1,4 +1,7 @@
-class Renderer extends PIXI.Application {
+import * as PIXI from 'pixi.js';
+import { Scene } from './Scene.js';
+
+export class Renderer extends PIXI.Application {
   constructor() {
     super({
       backgroundColor: 0xffffff,

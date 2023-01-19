@@ -1,7 +1,8 @@
-class Scene extends PIXI.Container {
+import * as PIXI from 'pixi.js';
+
+export class Scene extends PIXI.Container {
   constructor() {
     super();
-    // gsap.registerPlugin(PIXI);
 
     this.addWheel();
     this.addStopper();
@@ -10,13 +11,13 @@ class Scene extends PIXI.Container {
   }
 
   addWheel() {
-    this.wheel_sprite = PIXI.Sprite.from('src/images/wheel.png');
+    this.wheel_sprite = PIXI.Sprite.from('assets/images/wheel.png');
     this.wheel_sprite.anchor.set(0.5);
     this.addChild(this.wheel_sprite);
   }
 
   addStopper() {
-    this.stopper_sprite = PIXI.Sprite.from('src/images/stopper.png');
+    this.stopper_sprite = PIXI.Sprite.from('assets/images/stopper.png');
     this.stopper_sprite.anchor.set(0.5, 0);
     this.stopper_sprite.angle = 180;
     this.addChild(this.stopper_sprite);
@@ -31,7 +32,7 @@ class Scene extends PIXI.Container {
   }
 
   addTextValue() {
-    PIXI.Assets.load('src/fonts/font_wheel.fnt');
+    PIXI.Assets.load('assets/fonts/font_wheel.fnt');
     this.text_value = new PIXI.Text('10', {
       ontName: 'font_wheel',
       fontSize: 50,
