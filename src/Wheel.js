@@ -1,6 +1,6 @@
 import { SECTORS, SECTOR_COLORS, WHEEL_COLORS } from './constants.js';
 import { gsap } from 'gsap';
-import { PixiPlugin } from 'gsap/PixiPlugin';
+import PixiPlugin from 'gsap/PixiPlugin.js';
 import * as PIXI from 'pixi.js';
 
 export class Wheel {

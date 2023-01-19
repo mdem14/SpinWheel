@@ -1,18 +1,33 @@
-const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-module.exports = {
+const __dirname = path.resolve();
+
+export default {
+  context: path.resolve(__dirname, 'src'),
   mode: 'development',
-  entry: './src/index.js',
+  entry: './index.js',
   output: {
     filename: '[contenthash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+
+  devtool: 'inline-source-map',
+
   plugins: [
-    new HTMLWebpackPlugin({
-      template: './src/index.html',
+    new HtmlWebpackPlugin({
+      template: './index.html',
     }),
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/assets/'),
+          to: path.resolve(__dirname, 'dist/assets'),
+        },
+      ],
+    }),
   ],
 };
