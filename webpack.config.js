@@ -16,6 +16,14 @@ export default {
     path: path.resolve(__dirname, 'dist'),
   },
   devtool: 'inline-source-map',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+  devServer: {
+    port: 4200,
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
@@ -30,4 +38,18 @@ export default {
       ],
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
+  },
 };
