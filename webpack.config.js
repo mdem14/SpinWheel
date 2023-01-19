@@ -1,12 +1,11 @@
 import path from 'path';
-// import { fileURLToPath } from 'url';
-
+import { fileURLToPath } from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-const __dirname = path.resolve();
-// const __dirname = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default {
   context: path.resolve(__dirname, 'src'),
